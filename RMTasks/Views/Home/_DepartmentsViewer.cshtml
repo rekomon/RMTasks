@@ -1,0 +1,18 @@
+﻿@model Department
+
+<ul>
+    <li>
+        <img class="img-thumbnail" style="max-width:30px" src="~/@Model.Logo" />  @Model.Name
+        @if (Model.SubDepartments != null && Model.SubDepartments.Any())
+        {
+            <ul>
+                @foreach (var subDepartment in Model.SubDepartments)
+                {
+                    @await Html.PartialAsync("_DepartmentsViewer", subDepartment)
+
+                  
+                }
+            </ul>
+        }
+    </li>
+</ul>

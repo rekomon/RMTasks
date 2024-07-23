@@ -1,0 +1,33 @@
+﻿@model List<Reminder>
+
+<h1>Reminders</h1>
+
+<p class="float-end">
+    <a asp-action="CreateReminder">Create New Reminder</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var reminder in Model)
+            {
+                <tr>
+                    <td>@reminder.Title</td>
+                    <td>@reminder.DateTime</td>
+                    <td>
+                        <a asp-action="EditReminder" asp-route-id="@reminder.Id">Edit</a> |
+                        <a asp-action="DeleteReminder" asp-route-id="@reminder.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

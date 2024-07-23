@@ -1,0 +1,43 @@
+﻿@model Department
+
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+@if (Model.ParentDepartment != null)
+{
+    <h6>Parent Departments</h6>
+
+    @foreach (var parent in GetParentDepartments(Model))
+    {
+        <span>
+            <img class="img-thumbnail" style="max-width:30px" src="~/@parent.Logo" />  @parent.Name
+        </span>
+    }
+}
+<br />
+<span class="h4">
+<img class="img-thumbnail" style="max-width:30px" src="~/@Model.Logo" />  @Model.Name</span>
+<br />
+@if (Model.SubDepartments != null && Model.SubDepartments.Any())
+{
+    <h6>Sub Departments inside</h6>
+    @await Html.PartialAsync("_DepartmentsViewer", Model)
+}
+<br />
+
+
+
+@functions {
+    private List<Department> GetParentDepartments(Department department)
+    {
+        var parents = new List<Department>();
+        while (department.ParentDepartment != null)
+        {
+            department = department.ParentDepartment;
+            parents.Add(department);
+        }
+        parents.Reverse(); 
+        return parents;
+    }
+}
